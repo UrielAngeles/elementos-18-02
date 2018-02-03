@@ -9,10 +9,16 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Grid;
+import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+import java.util.List;
+import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -22,6 +28,7 @@ import com.vaadin.ui.themes.ValoTheme;
 @Theme("valo")
 public class MiUI extends UI {
 
+    @Autowired RepositorioMensajitos repoMensa;
     @Override
     protected void init(VaadinRequest request) {
         //Agregaremos un layout vertical y dentro de el los componentes que quedaran en orden descendente
@@ -45,6 +52,27 @@ public class MiUI extends UI {
         
         //Solo se agrega una vez y se agrega el layout a la pagina index 
         
+    
+        // Have some data
+        List<Mensajitos> mensajitos = (List<Mensajitos>) repoMensa.findAll();
+           
+
+    // Create a grid bound to the list
+        Grid<Mensajitos> grid = new Grid<>();
+        grid.setItems(mensajitos);
+        grid.addColumn(Mensajitos::getTitulo).setCaption("Titulo");
+        grid.addColumn(Mensajitos::getCuerpo).setCaption("Cuerpo");
+
+
+   // switch to multiselect mode
+        grid.setSelectionMode(SelectionMode.MULTI);
+
+        grid.addSelectionListener(event -> {
+            Set<Mensajitos> selected = event.getAllSelectedItems();
+            Notification.show(selected.size() + " registros seleccionados");
+        });
+
+    layout.addComponent(grid);
         setContent(layout);
     }
     
