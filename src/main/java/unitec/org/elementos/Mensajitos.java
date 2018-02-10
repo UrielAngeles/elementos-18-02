@@ -19,6 +19,7 @@ import javax.persistence.Id;
 public class Mensajitos {
     @Id
     @GeneratedValue
+    
     private Integer id;
     private String titulo;
     private String cuerpo;
@@ -64,7 +65,5 @@ public class Mensajitos {
         this.titulo = titulo;
         this.cuerpo = cuerpo;
     }
-    
-    
 }
 

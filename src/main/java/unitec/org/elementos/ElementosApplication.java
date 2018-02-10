@@ -17,7 +17,8 @@ public class ElementosApplication implements CommandLineRunner{
 
     @Override
     public void run(String... strings) throws Exception {
-       //Mensajitos m=new Mensajitos("Primero", "Mi primer mensajito con hibernate");
+        
+        //Mensajitos m=new Mensajitos("Primero", "Mi primer mensajito con hibernate");
         //repoMensa.save(m);
         /*ArrayList<Mensajitos> mensajitos =(ArrayList<Mensajitos>)repoMensa.findAll();
         for(Mensajitos mensa:mensajitos){
