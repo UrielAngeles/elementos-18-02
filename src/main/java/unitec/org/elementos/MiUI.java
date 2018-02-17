@@ -6,6 +6,7 @@
 package unitec.org.elementos;
 
 import com.vaadin.annotations.Theme;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Button;
@@ -19,6 +20,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,10 +134,12 @@ class Ventana extends Window {
         Button botonBorrar=new Button("Borrar");
         botonBorrar.addStyleName(ValoTheme.BUTTON_DANGER);
         botonBorrar.addClickListener(evento->{
+            Page.getCurrent().reload();
             repoMensa.delete(miId);
         });
         
         boton.addClickListener(evento -> {
+            Page.getCurrent().reload();
         
             repoMensa.save(new Mensajitos(miId,Titulo1.getValue(),Cuerpo1.getValue()));
             close();
@@ -167,6 +171,7 @@ class Ventana extends Window {
             
             repoMensa.save(new Mensajitos(Titulo1.getValue(),Cuerpo1.getValue()));
             close();
+            Page.getCurrent().reload();
         });
         vl2.addComponent(Titulo1);
         vl2.addComponent(Cuerpo1);
